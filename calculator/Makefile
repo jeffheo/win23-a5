@@ -1,19 +1,24 @@
-CC = gcc
-CFLAGS = -Wall
+CC := gcc
+CFLAGS := -Wall
 
-SRC = main.c addition.c subtraction.c multiplication.c division.c
-OBJ = $(SRC:.c=.o)
+# File names
+SRC := main.c addition.c subtraction.c multiplication.c division.c
+OBJ := $(SRC:.c=.o)
+EXECUTABLE := calculator
 
-all: calculator
+# Targets
+.PHONY: all clean
 
-calculator: $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o calculator
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c operations.h
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ) calculator
+	rm -f $(OBJ) $(EXECUTABLE)
 
 
 
